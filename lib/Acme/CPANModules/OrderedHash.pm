@@ -169,6 +169,6 @@ MARKDOWN
 =head1 DESCRIPTION
 
 
-=head1 SEE ALSO
+=head1 prepend:SEE ALSO
 
 L<Acme::CPANModules::HashUtilities>
