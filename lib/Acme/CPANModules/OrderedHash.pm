@@ -153,6 +153,29 @@ MARKDOWN
                 }
             },
         },
+
+        {
+            module => 'Tree::RB::XS',
+            description => <<'MARKDOWN',
+
+Multi-purpose tree data structure which can record insertion order and act as an ordered hash.
+Use `track_recent => 1, keys_in_recent_order => 1` options.
+Can use as a tied hash, or as an object (faster).
+
+MARKDOWN
+            bench_code => sub {
+                my ($op, $numkeys, $numrep) = @_;
+
+                my $tree= Tree::RB::XS->new(compare_fn => 'str', track_recent => 1, keys_in_recent_order => 1);
+                for (1..$numkeys) { $tree->insert("key$_") }
+
+                if ($op eq 'delete') {
+                    for (1..$numkeys) { $tree->delete("key$_") }
+                } elsif ($op eq 'keys') {
+                    for (1..$numrep) { my @keys= $tree->keys }
+                }
+            },
+        },
     ],
 
     bench_datasets => [
