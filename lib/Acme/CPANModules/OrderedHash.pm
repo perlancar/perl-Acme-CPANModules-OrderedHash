@@ -9,7 +9,7 @@ use strict;
 
 our $LIST = {
     summary => "List of modules that provide ordered hash data type",
-    description => <<'_',
+    description => <<'MARKDOWN',
 
 When you ask a Perl's hash for the list of keys, the answer comes back
 unordered. In fact, Perl explicitly randomizes the order of keys it returns
@@ -23,7 +23,7 @@ Other related modules:
 <pm:Tie::SortHash> - will automatically sort keys when you call `keys()`,
 `values()`, `each()`. But this module does not maintain insertion order.
 
-_
+MARKDOWN
     entries => [
 
         {
@@ -113,12 +113,12 @@ MARKDOWN
 
         {
             module => 'Array::OrdHash',
-            description => <<'_',
+            description => <<'MARKDOWN',
 
 Provide something closest to PHP's associative array, where you can refer
 elements by key or by numeric index, and insertion order is remembered.
 
-_
+MARKDOWN
             bench_code => sub {
                 my ($op, $numkeys, $numrep) = @_;
 
@@ -158,9 +158,9 @@ MARKDOWN
             module => 'Tree::RB::XS',
             description => <<'MARKDOWN',
 
-Multi-purpose tree data structure which can record insertion order and act as an ordered hash.
-Use `track_recent => 1, keys_in_recent_order => 1` options.
-Can use as a tied hash, or as an object (faster).
+Multi-purpose tree data structure which can record insertion order and act as an
+ordered hash. Use `track_recent => 1, keys_in_recent_order => 1` options. Can
+be used as a tied hash, or as an object (faster).
 
 MARKDOWN
             bench_code => sub {
