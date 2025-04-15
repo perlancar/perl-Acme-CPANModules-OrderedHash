@@ -38,6 +38,8 @@ MARKDOWN
                     for (1..$numkeys) { delete $hash{"key$_"} }
                 } elsif ($op eq 'keys') {
                     for (1..$numrep) { my @keys = keys %hash }
+                } elsif ($op eq 'iterate') {
+                    for (1..$numrep) { while (my ($k,$v) = each %hash) {} }
                 }
             },
         },
@@ -54,6 +56,8 @@ MARKDOWN
                     for (1..$numkeys) { $hash->delete("key$_") }
                 } elsif ($op eq 'keys') {
                     for (1..$numrep) { my @keys = $hash->keys }
+                } elsif ($op eq 'iterate') {
+                    for (1..$numrep) { my $iter = $hash->iterator; while (my ($k,$v) = $iter->()) {} }
                 }
             },
         },
@@ -75,6 +79,8 @@ MARKDOWN
                     for (1..$numkeys) { delete $hash{"key$_"} }
                 } elsif ($op eq 'keys') {
                     for (1..$numrep) { my @keys = keys %hash }
+                } elsif ($op eq 'iterate') {
+                    for (1..$numrep) { while (my ($k,$v) = each %hash) {} }
                 }
             },
         },
@@ -91,6 +97,8 @@ MARKDOWN
                     for (1..$numkeys) { delete $hash{"key$_"} }
                 } elsif ($op eq 'keys') {
                     for (1..$numrep) { my @keys = keys %hash }
+                } elsif ($op eq 'iterate') {
+                    for (1..$numrep) { while (my ($k,$v) = each %hash) {} }
                 }
             },
         },
@@ -107,6 +115,8 @@ MARKDOWN
                     for (1..$numkeys) { delete $hash{"key$_"} }
                 } elsif ($op eq 'keys') {
                     for (1..$numrep) { my @keys = keys %hash }
+                } elsif ($op eq 'iterate') {
+                    for (1..$numrep) { while (my ($k,$v) = each %hash) {} }
                 }
             },
         },
@@ -129,6 +139,8 @@ MARKDOWN
                     for (1..$numkeys) { delete $hash->{"key$_"} }
                 } elsif ($op eq 'keys') {
                     for (1..$numrep) { my @keys = keys %$hash }
+                } elsif ($op eq 'iterate') {
+                    for (1..$numrep) { while (my ($k,$v) = each %$hash) {} }
                 }
             },
         },
@@ -140,6 +152,7 @@ MARKDOWN
 Provide a list, not hash.
 
 MARKDOWN
+            bench_tags => ["no_iterate"].
             bench_code => sub {
                 my ($op, $numkeys, $numrep) = @_;
 
@@ -150,6 +163,8 @@ MARKDOWN
                     for (1..$numkeys) { $hash->delete("key$_") }
                 } elsif ($op eq 'keys') {
                     for (1..$numrep) { my @keys = $hash->keys }
+                } elsif ($op eq 'iterate') {
+                    for (1..$numrep) { while (my ($k,$v) = each %$hash) {} }
                 }
             },
         },
@@ -173,6 +188,8 @@ MARKDOWN
                     for (1..$numkeys) { $tree->delete("key$_") }
                 } elsif ($op eq 'keys') {
                     for (1..$numrep) { my @keys= $tree->keys }
+                } elsif ($op eq 'iterate') {
+                    for (1..$numrep) { my $iter = $tree->iter; while (my $v = $iter->next) {} }
                 }
             },
         },
@@ -182,7 +199,7 @@ MARKDOWN
         {name=>'insert 1000 pairs', argv => ['insert', 1000]},
         {name=>'insert 1000 pairs + delete', argv => ['delete', 1000]},
         {name=>'insert 1000 pairs + return keys 100 times', argv => ['keys', 1000, 100]},
-        # TODO: iterating
+        {name=>'insert 1000 pairs + iterate 10 times', argv => ['iterate', 1000, 10], exclude_participant_tags => ['no_iterate']},
     ],
 };
 
